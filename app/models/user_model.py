@@ -2,6 +2,7 @@ from sqlalchemy import Column, Integer, String, Boolean, Enum, DateTime
 from app.db.database import Base
 import enum
 from datetime import datetime
+from sqlalchemy.orm import relationship
 
 class Role(enum.Enum):
     ADMIN = "ADMIN"
@@ -25,3 +26,5 @@ class User(Base):
     email_confirmation_expires = Column(DateTime, nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    profile = relationship("Profile", back_populates="user", uselist=False)

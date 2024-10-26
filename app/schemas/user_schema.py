@@ -1,6 +1,7 @@
 from pydantic import BaseModel, EmailStr
 from app.models.user_model import Role
 from datetime import datetime
+from app.schemas.profile_schema import ProfileCreate, ProfileUpdate, Profile
 
 class UserBase(BaseModel):
     email: EmailStr
@@ -8,6 +9,7 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str
+    profile: ProfileCreate | None = None
     
 class UserUpdate(BaseModel):
     email: EmailStr | None = None
@@ -17,6 +19,7 @@ class UserUpdate(BaseModel):
     role: Role | None = None
     is_active: bool | None = None
     verified_email: bool | None = None
+    profile: ProfileUpdate | None = None
 
 class User(UserBase):
     id: int
@@ -31,6 +34,7 @@ class User(UserBase):
     email_confirmation_expires: datetime | None = None
     created_at: datetime
     updated_at: datetime
+    profile: Profile | None = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True

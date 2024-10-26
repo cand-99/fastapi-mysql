@@ -18,18 +18,11 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-from app.models.user_model import Base
-from app.db.database import SQLALCHEMY_DATABASE_URL
+from app.models import *
+from app.db.database import Base, SQLALCHEMY_DATABASE_URL
 
 target_metadata = Base.metadata
-
-# other values from the config, defined by the needs of env.py,
-# can be acquired:
-# my_important_option = config.get_main_option("my_important_option")
-# ... etc.
 
 # Override sqlalchemy.url in alembic.ini
 config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
